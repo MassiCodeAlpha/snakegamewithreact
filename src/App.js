@@ -56,24 +56,24 @@ class App extends Component {
     let y = head[1];
     switch (this.state.direction) {
       case "Right":
-        {
+        
           head = [x, y + 2];
-        }
+        
         break;
       case "Left":
-        {
+        
           head = [x, y - 2];
-        }
+        
         break;
       case "Up":
-        {
+        
           head = [x - 2, y];
-        }
+        
         break;
       default:
-        {
+        
           head = [x + 2, y];
-        }
+        
         break;
     }
     dots.push(head);

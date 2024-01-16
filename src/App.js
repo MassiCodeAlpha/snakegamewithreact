@@ -70,7 +70,7 @@ class App extends Component {
           head = [x - 2, y];
         }
         break;
-      case "Down":
+      default:
         {
           head = [x + 2, y];
         }

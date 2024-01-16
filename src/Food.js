@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-export default const  Food=(props) => {
+export default function Food(props) {
   const style = {
     top: `${props.dot[0]}%`,
     left: `${props.dot[1]}%`,

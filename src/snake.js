@@ -1,5 +1,5 @@
 import react from "react";
-export default (props) => {
+export default function Snake(props) {
   return (
     <div>
       {props.snakeDots.map((dot, i) => {

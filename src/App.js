@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./App.css";
 import Snake from "./snake";
 import SnakeFood from "./Food";
+
 const getRandomCoordinates = () => {
   let min = 1;
   let max = 98;
@@ -9,6 +9,7 @@ const getRandomCoordinates = () => {
   let y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
   return [x, y];
 };
+
 const initState = {
   food: getRandomCoordinates(),
   speed: 500,
@@ -18,20 +19,23 @@ const initState = {
     [2, 0],
   ],
 };
+
 class App extends Component {
   state = initState;
-  componentDidMount = (e) => {
+
+  componentDidMount = () => {
     setInterval(this.moveSnake, this.state.speed);
     document.onkeydown = this.onkeydown;
   };
+
   componentDidUpdate = () => {
     this.checkIfOutOfBorders();
     this.checkIfCollapsed();
     this.CheckIfEat();
   };
+
   onkeydown = (e) => {
     e = e || window.event;
-    console.log(e.keyCode);
     switch (e.keyCode) {
       case 37:
         this.setState({ direction: "Left" });
@@ -49,43 +53,40 @@ class App extends Component {
         break;
     }
   };
+
   moveSnake = () => {
     let dots = [...this.state.snakeDots];
     let head = dots[dots.length - 1];
     let x = head[0];
     let y = head[1];
+
     switch (this.state.direction) {
       case "Right":
-        
-          head = [x, y + 2];
-        
+        head = [x, y + 2];
         break;
       case "Left":
-        
-          head = [x, y - 2];
-        
+        head = [x, y - 2];
         break;
       case "Up":
-        
-          head = [x - 2, y];
-        
+        head = [x - 2, y];
         break;
       default:
-        
-          head = [x + 2, y];
-        
+        head = [x + 2, y];
         break;
     }
+
     dots.push(head);
     dots.shift();
     this.setState({ snakeDots: dots });
   };
+
   checkIfOutOfBorders = () => {
     let head = this.state.snakeDots[this.state.snakeDots.length - 1];
     if (head[0] >= 100 || head[1] >= 100 || head[0] < 0 || head[1] < 0) {
       this.onGameOver();
     }
   };
+
   checkIfCollapsed = () => {
     let snake = [...this.state.snakeDots];
     let head = snake[snake.length - 1];
@@ -96,6 +97,7 @@ class App extends Component {
       }
     });
   };
+
   CheckIfEat = () => {
     let snake = [...this.state.snakeDots];
     let head = snake[snake.length - 1];
@@ -106,6 +108,7 @@ class App extends Component {
       this.increaseSpeed();
     }
   };
+
   enlargeSnake = () => {
     let newSnake = [...this.state.snakeDots];
     newSnake.unshift([]);
@@ -113,6 +116,7 @@ class App extends Component {
       snakeDots: newSnake,
     });
   };
+
   increaseSpeed = () => {
     if (this.state.speed > 10) {
       this.setState({
@@ -120,15 +124,19 @@ class App extends Component {
       });
     }
   };
+
   onGameOver = () => {
-    alert("GAME OVER YOUR RESULT IS : " + this.state.snakeDots.length);
+    alert("GAME OVER! YOUR RESULT IS: " + this.state.snakeDots.length);
     this.setState(initState);
   };
+
   render() {
     return (
-      <div className="game-area">
-        <Snake snakeDots={this.state.snakeDots} />
-        <SnakeFood dot={this.state.food} />
+      <div className="flex justify-center items-center h-screen bg-gradient-to-r from-yellow-300 to-black">
+        <div className="game-area bg-gray-800 border-4 border-yellow-500 relative">
+          <Snake snakeDots={this.state.snakeDots} />
+          <SnakeFood dot={this.state.food} />
+        </div>
       </div>
     );
   }
